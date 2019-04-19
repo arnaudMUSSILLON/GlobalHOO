@@ -1,9 +1,21 @@
-<ion-grid>
-  <ion-row><ion-img src="./assets/GHOO_logo.jpeg"></ion-img></ion-row>
+<ion-img id="main-image" src="{{selectedPhoto.path}}"></ion-img>
   
-  <ion-row class="ion-align-items-start">
-    <ion-col><ion-img src="./assets/GHOO_logo.jpeg"></ion-img></ion-col>
-    <ion-col><ion-img src="./assets/GHOO_logo.jpeg"></ion-img></ion-col>
-    <ion-col><ion-img src="./assets/GHOO_logo.jpeg"></ion-img></ion-col>
-  </ion-row>
-</ion-grid>
+<ion-list>
+  <ion-grid>
+      <ion-item no-padding>
+        <ion-row align-items-center>
+          <ion-col *ngFor="let photo of photos" align-self-center size="4" class="gallery-row" (click)="imageOnClick(photo)">
+            <img *ngIf="photo.selected; else elseBlock" class="photo-filter" src="{{photo.path}}">
+            <ng-template #elseBlock><img src="{{photo.path}}"></ng-template>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+  </ion-grid>
+</ion-list>
+
+<ion-infinite-scroll (ionInfinite)="loadData($event)" threshold="100px">
+  <ion-infinite-scroll-content
+    loading-spinner="bubbles"
+    loading-text="Loading more photos...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

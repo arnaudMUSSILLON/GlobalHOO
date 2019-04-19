@@ -1,6 +1,6 @@
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
@@ -18,4 +18,11 @@ import { GalleryComponent } from '../components/gallery/gallery.component';
     GalleryComponent
   ]
 })
-export class Tab2PageModule {}
+export class Tab2PageModule implements AfterViewInit {
+  @ViewChild(GalleryComponent) gallery;
+  mainPhoto: any;
+
+  ngAfterViewInit() {
+    this.mainPhoto = this.gallery.selectedPhoto;
+  }
+}

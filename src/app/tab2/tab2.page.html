@@ -1,9 +1,14 @@
 <ion-content>
+  <div style="padding-top: 30px;"></div>
   <app-gallery></app-gallery>
 
-  <ion-button expand="block" color="primary" (click)="openCamera()">
-    <ion-icon slot="start" name="camera"></ion-icon>
-    Take a picture
-  </ion-button>
-  <!-- <img [src]="base64Image"/> -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-button expand="block" color="primary" id="select-btn">Select an image</ion-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCamera()" id="photo-btn">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>            
+  </ion-fab>
 </ion-content>
