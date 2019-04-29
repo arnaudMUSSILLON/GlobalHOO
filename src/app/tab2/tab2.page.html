@@ -1,6 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Upload an image
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
 <ion-content>
-  <div style="padding-top: 30px;"></div>
-  <app-gallery></app-gallery>
+  <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Some instructions</ion-card-subtitle>
+        <ion-card-title>Facilitate Documentation</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        To correctly identify what makes up your photo, we would need you to blabla
+      </ion-card-content>
+    </ion-card>
+
+  <div class="btn-container">
+    <ion-button size="large" expand="block" color="primary" (click)="openCamera()" id="photo-btn">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      Take a picture
+    </ion-button>  
+    <ion-button size="large" expand="block" color="primary" (click)="openGallery()" id="select-btn">
+      <ion-icon slot="start" name="grid"></ion-icon>
+      Select an image
+    </ion-button>
+  </div>
+
+  <!-- <app-gallery></app-gallery>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-button expand="block" color="primary" id="select-btn">Select an image</ion-button>
@@ -10,5 +39,5 @@
     <ion-fab-button (click)="openCamera()" id="photo-btn">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>            
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

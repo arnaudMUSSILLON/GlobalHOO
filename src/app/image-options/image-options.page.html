@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Optional informations</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="app"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img *ngIf="photo" src="{{ photo }}"/>
+  <p *ngIf="photo">hey there</p>
+</ion-content>

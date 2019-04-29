@@ -26,6 +26,10 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab2/options',
+        loadChildren: '../image-options/image-options.module#ImageOptionsPageModule'
+      },
+      {
         path: 'tab3',
         children: [
           {
@@ -36,14 +40,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: 'tabs/(tab2:tab2)',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: 'tabs/tab2',
     pathMatch: 'full'
   }
 ];

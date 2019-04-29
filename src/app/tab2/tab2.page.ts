@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -9,7 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class Tab2Page {
   base64Image: string;
 
-  constructor(private camera: Camera) { }
+  constructor(private camera: Camera, private router: Router) { }
 
   openCamera() {
     const options: CameraOptions = {
@@ -37,12 +38,14 @@ export class Tab2Page {
       correctOrientation: true
     }
 
-    this.camera.getPicture(cameraOptions).then((file_uri) => {
-      //add photo to the array of photos
-      //this.addPhoto(normalizeURL(file_uri));
-    }, (error) => {
-      console.debug("Unable to obtain picture: " + error, "app");
-      console.log(error);
+    this.camera.getPicture(cameraOptions).then((imageData) => {
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      let navigationExtras: NavigationExtras = {
+        state: {photo: this.base64Image}
+      };
+      this.router.navigateByUrl('/app/tabs/tab2/options', navigationExtras);
+    }, (err) => {
+      console.log(err);
     });
   }
 }
