@@ -6,3 +6,9 @@ a {
     color: var(--ion-color-medium);
     text-decoration: none;
 }
+
+.toast-danger {
+    .toast-wrapper{
+        background-color: red;
+    }
+}

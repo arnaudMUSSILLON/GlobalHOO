@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,45 +13,57 @@ export class LoginPage implements OnInit {
   email: String;
   password: String;
 
-  validations_form = new FormBuilder().group({
+  emailPattern = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+  signinform = new FormGroup({
     email: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.email
+      Validators.pattern(this.emailPattern)
     ])),
     password: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(6),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')   //Both lowercase and uppercase password
+      //Validators.minLength(6),
+      //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')   //Both lowercase and uppercase password
     ]))
   });
 
   validation_messages = {
     'email': [
         { type: 'required', message: 'Email is required.' },
-        { type: 'minlength', message: 'Email must be at least 6 characters long.' },
         { type: 'pattern', message: 'Your email must be valid.' },
       ],
-      'name': [
-        { type: 'required', message: 'Name is required.' }
+      'password': [
+        { type: 'required', message: 'Password is required.' }
       ],
     }
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, 
+    private authService: AuthService,
+    private toast: ToastController) { }
 
   ngOnInit() {
   }
 
   login() {
+    this.email = this.signinform.get('email').value;  //angular 7 ngmodel
+    this.password = this.signinform.get('password').value;
     const user = { email: this.email, password: this.password };
     this.authService.authenticateUser(user).subscribe((data:any) => {
       if(data.success) {
-        console.log('Logged in');
         this.authService.storeUserData(data.token, data.user);
-        this.router.navigateByUrl('app');
+        this.router.navigateByUrl('/app');
       } else {
-        console.log('Failed to log in');
+        this.presentToast(data.msg);
         console.log(data.msg);
       }
     });
+  }
+
+  async presentToast(msg: string) {
+    let t = await this.toast.create({
+      message : msg,
+      duration: 3000,
+      color: 'danger',
+    });
+    t.present();
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   authToken: string;
   user: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storage: NativeStorage) { }
 
   registerUser() {
 
@@ -25,12 +26,18 @@ export class AuthService {
   storeUserData(token, user) {
     this.authToken = token;
     this.user = user;
-    window.localStorage.setItem('id_token', token);
-    window.localStorage.setItem(user, JSON.stringify(user));
+    console.log(user.first_name);
+    this.storage.setItem('id_token', {token: this.authToken})
+      .then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
+    this.storage.setItem('user', this.user);
   }
 
   loadToken() {
-    this.authToken = window.localStorage.getItem('id_token');
+    this.storage.getItem('id_token')
+      .then(data => this.authToken = data);
   }
 
   loggedIn() {
