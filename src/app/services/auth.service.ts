@@ -14,8 +14,9 @@ export class AuthService {
 
   constructor(private http: HttpClient, private storage: NativeStorage) { }
 
-  registerUser() {
-
+  registerUser(user) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(environment.apiUrl+'/user/create', user, {headers:headers});
   }
 
   authenticateUser(user) {
@@ -26,12 +27,7 @@ export class AuthService {
   storeUserData(token, user) {
     this.authToken = token;
     this.user = user;
-    console.log(user.first_name);
-    this.storage.setItem('id_token', {token: this.authToken})
-      .then(
-        () => console.log('Stored item!'),
-        error => console.error('Error storing item', error)
-      );
+    this.storage.setItem('id_token', {token: this.authToken});
     this.storage.setItem('user', this.user);
   }
 

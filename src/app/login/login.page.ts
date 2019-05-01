@@ -20,9 +20,7 @@ export class LoginPage implements OnInit {
       Validators.pattern(this.emailPattern)
     ])),
     password: new FormControl('', Validators.compose([
-      Validators.required,
-      //Validators.minLength(6),
-      //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')   //Both lowercase and uppercase password
+      Validators.required
     ]))
   });
 
@@ -43,6 +41,10 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Call backend to check if the credentials are correct
+   * If so user and token are stored
+   */
   login() {
     this.email = this.signinform.get('email').value;  //angular 7 ngmodel
     this.password = this.signinform.get('password').value;
@@ -53,7 +55,6 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('/app');
       } else {
         this.presentToast(data.msg);
-        console.log(data.msg);
       }
     });
   }
@@ -65,5 +66,9 @@ export class LoginPage implements OnInit {
       color: 'danger',
     });
     t.present();
+  }
+
+  navigateToRegister() {
+    this.router.navigateByUrl('/register');
   }
 }
