@@ -6,4 +6,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <form novalidate (ngSubmit)="update()" [formGroup]="updateform" padding>
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="text" formControlName="first_name"></ion-input>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.first_name">
+      <div class="error" *ngIf="updateform.get('first_name').hasError(validation.type) && (updateform.get('first_name').dirty || updateform.get('first_name').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+    
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input type="text" formControlName="last_name"></ion-input>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.last_name">
+      <div class="error" *ngIf="updateform.get('last_name').hasError(validation.type) && (updateform.get('last_name').dirty || updateform.get('last_name').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+    
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.email">
+      <div class="error" *ngIf="updateform.get('email').hasError(validation.type) && (updateform.get('email').dirty || updateform.get('email').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+
+    <ion-button type="submit" class="ion-margin-top" expand="block" [disabled]="updateform.invalid">Update informations</ion-button>
+  </form>
+</ion-content>
