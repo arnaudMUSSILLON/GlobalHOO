@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'
 import { AuthService } from '../services/auth.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
@@ -32,7 +33,7 @@ export class Tab3Page {
     ]
   }
 
-  constructor(private authService: AuthService, private toast: ToastController) {
+  constructor(private router: Router, private authService: AuthService, private toast: ToastController) {
     this.authService.getUser().then((data) => {
       this.user = data;
       this.updateform = new FormGroup({
@@ -55,6 +56,10 @@ export class Tab3Page {
     });
   }
 
+  /**
+   * Try to update the user's profile
+   * Show result to the user if success or failure
+   */
   update() {
     this.authService.getUser().then(storedUser => {
       let user = {
@@ -72,6 +77,14 @@ export class Tab3Page {
         }
       });
     })
+  }
+
+  /**
+   * Logout from the application and redirect to login screen
+   */
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
   }
 
   async presentDangerToast(msg: string) {

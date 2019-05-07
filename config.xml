@@ -3,7 +3,7 @@
     <name>GlobalHOO</name>
     <description>Document the natural world in ways useful for professional scientists, conservationists, resource managers, and educators</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://198.128.202.179:8100" />
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
@@ -87,5 +87,5 @@
     <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^3.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <allow-navigation href="http://198.128.202.179:8100" sessionid="d9903636" />
+    <allow-navigation href="http://198.128.202.179:8100" sessionid="d9bd2382" />
 </widget>

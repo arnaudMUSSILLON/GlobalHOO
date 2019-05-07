@@ -75,6 +75,10 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * On submit try to register the user
+   * Display if an error occurs
+   */
   register() {
     let user = {
       first_name: this.signupform.get('first_name').value,

@@ -65,6 +65,12 @@ export class AuthService {
     return tokenNotExpired('id_token', this.authToken);
   }
 
+  logout() {
+    this.authToken = null;
+    this.user = null;
+    return this.storage.clear();
+  }
+
   /**
    * Return the token from the storage
    */
