@@ -36,7 +36,13 @@ export class LoginPage implements OnInit {
 
   constructor(private router: Router, 
     private authService: AuthService,
-    private toast: ToastController) { }
+    private toast: ToastController) { 
+    this.authService.loggedIn()
+      .then(isAuth => {
+        if(isAuth) this.router.navigateByUrl('/app');
+      })
+      .catch(err => {console.log(err)});
+    }
 
   ngOnInit() {
   }

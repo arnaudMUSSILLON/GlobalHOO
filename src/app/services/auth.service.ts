@@ -61,30 +61,41 @@ export class AuthService {
   /**
    * Check if the token expired
    */
-  loggedIn() {
-    return tokenNotExpired('id_token', this.authToken);
+  loggedIn(): Promise<boolean> {
+    return this.getToken()
+      .then(token => {
+        if(token !== '') {
+          let res = tokenNotExpired('id_token', token);
+          return res;
+        } else
+          return false;
+      });
   }
 
   logout() {
-    this.authToken = null;
-    this.user = null;
     return this.storage.clear();
   }
 
   /**
-   * Return the token from the storage
+   * Promise returning the token from the storage
    */
-  getToken() {
-    return this.storage.getItem('id_token')
-      .then(data => {
-        return data.token;
+  getToken(): Promise<string> {
+    if(localStorage.getItem('id_token') !== null) {
+      return this.storage.getItem('id_token')
+        .then(data => {
+          return data.token;
+        });
+    } else {
+      return new Promise((resolve, reject) => {
+        resolve('');
       });
+    }
   }
 
   /**
-   * Return the user from the storage
+   * Promise returning the user from the storage
    */
-  getUser(): any {
+  getUser(): Promise<any> {
     return this.storage.getItem('user')
       .then(data => {
         return {
