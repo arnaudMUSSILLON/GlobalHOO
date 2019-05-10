@@ -10,8 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "emulate": "ionic cordova run ios --port=8000 --livereload",
-    "emulate-b": "ionic cordova run browser --livereload"
+    "emulate": "ionic cordova run ios --port=8000 --livereload --consolelogs --serverlogs",
+    "emulate-b": "ionic cordova run browser --livereload --consolelogs --serverlogs"
   },
   "private": true,
   "dependencies": {

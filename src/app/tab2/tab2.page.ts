@@ -39,8 +39,8 @@ export class Tab2Page {
     }
 
     this.camera.getPicture(cameraOptions).then((imageData) => {
-      // this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.base64Image = (<any>window).Ionic.WebView.convertFileSrc(imageData);
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      // this.base64Image = (<any>window).Ionic.WebView.convertFileSrc(imageData);
       console.log(this.base64Image);
       let navigationExtras: NavigationExtras = {
         state: {photo: this.base64Image}

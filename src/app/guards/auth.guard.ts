@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
   
-  canActivate() {
+  canActivate(): Promise<boolean> {
     return this.authService.loggedIn()
       .then(isLogged => {
         if(!isLogged) {

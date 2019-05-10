@@ -80,16 +80,18 @@ export class AuthService {
    * Promise returning the token from the storage
    */
   getToken(): Promise<string> {
-    if(localStorage.getItem('id_token') !== null) {
-      return this.storage.getItem('id_token')
-        .then(data => {
-          return data.token;
-        });
-    } else {
-      return new Promise((resolve, reject) => {
-        resolve('');
+    return this.storage.keys()
+      .then(keys => {
+        for(let key of keys) {
+          if(key === 'id_token') {
+            return this.storage.getItem('id_token')
+              .then(data => {              
+                return data.token;
+              });
+          }
+        }
+        return '';
       });
-    }
   }
 
   /**
