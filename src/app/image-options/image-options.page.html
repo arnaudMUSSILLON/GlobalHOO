@@ -8,6 +8,35 @@
 </ion-header>
 
 <ion-content>
-  <img *ngIf="photo" src="{{ photo }}"/>
-  <p *ngIf="photo">hey there</p>
+  <!-- <img *ngIf="photo" src="{{ photo }}"/> -->
+  <!-- <p *ngIf="photo">Image suppose to show</p> -->
+
+  <form novalidate (ngSubmit)="upload()" [formGroup]="uploadform" padding>
+    <ion-item class="ion-padding-top">
+      <ion-label position="floating">Type of animal</ion-label>
+      <ion-input type="text" formControlName="type"></ion-input>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.type">
+      <div class="error" *ngIf="uploadform.get('type').hasError(validation.type) && (uploadform.get('type').dirty || uploadform.get('type').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+
+    <ion-item class="ion-padding-top">
+      <ion-label position="floating">Additional informations</ion-label>
+      <ion-textarea type="text" formControlName="infos"></ion-textarea>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.infos">
+      <div class="error" *ngIf="uploadform.get('infos').hasError(validation.type) && (uploadform.get('infos').dirty || uploadform.get('infos').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+
+    <ion-item class="ion-padding-top">
+      <ion-label>Beach stranding</ion-label>
+      <ion-checkbox slot="start" formControlName="stranding"></ion-checkbox>
+    </ion-item>
+
+    <ion-button type="submit" class="ion-margin-top" expand="block" [disabled]="uploadform.invalid">Upload</ion-button>
+  </form>
 </ion-content>
