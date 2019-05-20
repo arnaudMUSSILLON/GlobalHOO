@@ -71,8 +71,9 @@ export class Tab2Page {
         // alert('Lat: '+parsedData.gpsLatitude+' Lon: '+parsedData.gpsLongitude);
       }
     }
-    this.base64Image = parsedData.filename;
+    // this.base64Image = parsedData.filename;
     this.base64Image = (<any>window).Ionic.WebView.convertFileSrc(parsedData.filename);
+    alert(this.base64Image);
     let navigationExtras: NavigationExtras = {
       state: {photo: this.base64Image, metadata: this.metadata}
     };

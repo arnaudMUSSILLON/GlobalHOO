@@ -65,8 +65,7 @@ export class AuthService {
     return this.getToken()
       .then(token => {
         if(token !== '') {
-          let res = tokenNotExpired('id_token', token);
-          return res;
+          return tokenNotExpired('id_token', token);
         } else
           return false;
       });
@@ -91,7 +90,7 @@ export class AuthService {
           }
         }
         return '';
-      });
+      }).catch(err => { console.log(err) });
   }
 
   /**

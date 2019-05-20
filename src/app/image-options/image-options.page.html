@@ -23,6 +23,16 @@
     </div>
 
     <ion-item class="ion-padding-top">
+      <ion-label position="floating">Estimated size (in meters)</ion-label>
+      <ion-input type="text" formControlName="size"></ion-input>
+    </ion-item>
+    <div *ngFor="let validation of validation_messages.size">
+      <div class="error" *ngIf="uploadform.get('size').hasError(validation.type) && (uploadform.get('size').dirty || uploadform.get('size').touched)">
+        <ion-text color="danger">{{ validation.message }}</ion-text>
+      </div>
+    </div>
+
+    <ion-item class="ion-padding-top">
       <ion-label position="floating">Additional informations</ion-label>
       <ion-textarea type="text" formControlName="infos"></ion-textarea>
     </ion-item>

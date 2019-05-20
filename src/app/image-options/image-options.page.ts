@@ -14,11 +14,16 @@ export class ImageOptionsPage implements OnInit {
   private photo: string;
   private metadata: any;
 
+  onlyDigitRegex = /^[0-9]*\.?[0-9]+$/;
   onlyLettersRegex = /^[A-Z\s]+$/i;
   uploadform = new FormGroup({
     type: new FormControl('', Validators.compose([
       Validators.maxLength(50),
       Validators.pattern(this.onlyLettersRegex)
+    ])),
+    size: new FormControl('', Validators.compose([
+      Validators.maxLength(10),
+      Validators.pattern(this.onlyDigitRegex)
     ])),
     infos: new FormControl('', Validators.compose([
       Validators.maxLength(250)
@@ -31,12 +36,21 @@ export class ImageOptionsPage implements OnInit {
       { type: 'maxlength', message: 'Cannot exceed 50 characters' },
       { type: 'pattern', message: 'Must contain only letters'}
     ],
+    'size': [
+      { type:'maxlength', message: 'Cannot be this long' },
+      { type: 'pattern', message: 'Expect numbers such as 1, 2.3, 0.54' }
+    ],
     'infos': [
       { type: 'maxlength', message: 'Cannot exceed 250 characters' },
     ],
   };
 
-  constructor(private route: ActivatedRoute, private router: Router, private imageService: ImageService, private authService: AuthService, private toast: ToastController) { 
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private imageService: ImageService, 
+    private authService: AuthService, 
+    private toast: ToastController,
+  ) { 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.photo = this.router.getCurrentNavigation().extras.state.photo;
@@ -44,8 +58,9 @@ export class ImageOptionsPage implements OnInit {
       }
     });
   }
-
+  
   ngOnInit() {
+    if(this.photo === undefined) { this.router.navigateByUrl('/app'); }
   }
 
   upload() {
@@ -55,6 +70,7 @@ export class ImageOptionsPage implements OnInit {
         url: this.photo,
         metadata: this.metadata,
         type: this.uploadform.get('type').value,
+        size: this.uploadform.get('size').value,
         infos: this.uploadform.get('infos').value,
         stranding: this.uploadform.get('stranding').value
       };
