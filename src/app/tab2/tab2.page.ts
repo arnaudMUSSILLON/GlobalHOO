@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  base64Image: string;
+  photoUrl: string;
   currentPlatorm: string;
   metadata: any;
 
@@ -43,9 +43,9 @@ export class Tab2Page {
     let cameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.FILE_URI,
-      quality: 75,
-      targetWidth: 100,
-      targetHeight: 100,
+      quality: 1000,
+      targetWidth: 200,
+      targetHeight: 200,
       encodingType: this.camera.EncodingType.JPEG,
       correctOrientation: true
     }
@@ -71,11 +71,9 @@ export class Tab2Page {
         // alert('Lat: '+parsedData.gpsLatitude+' Lon: '+parsedData.gpsLongitude);
       }
     }
-    // this.base64Image = parsedData.filename;
-    this.base64Image = (<any>window).Ionic.WebView.convertFileSrc(parsedData.filename);
-    alert(this.base64Image);
+    this.photoUrl = parsedData.filename;
     let navigationExtras: NavigationExtras = {
-      state: {photo: this.base64Image, metadata: this.metadata}
+      state: {photo: this.photoUrl, metadata: this.metadata}
     };
     this.router.navigateByUrl('/app/tabs/tab2/options', navigationExtras);
   }

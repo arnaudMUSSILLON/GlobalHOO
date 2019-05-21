@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ImageService } from '../services/image.service';
 import { ToastController } from '@ionic/angular';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-image-options',
@@ -11,7 +12,8 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./image-options.page.scss'],
 })
 export class ImageOptionsPage implements OnInit {
-  private photo: string;
+  private photo: any;
+  private filePath: string;
   private metadata: any;
 
   onlyDigitRegex = /^[0-9]*\.?[0-9]+$/;
@@ -47,41 +49,56 @@ export class ImageOptionsPage implements OnInit {
 
   constructor(private route: ActivatedRoute, 
     private router: Router, 
+    private file: File,
     private imageService: ImageService, 
-    private authService: AuthService, 
+    private authService: AuthService,
     private toast: ToastController,
   ) { 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.photo = this.router.getCurrentNavigation().extras.state.photo;
+        this.filePath = this.router.getCurrentNavigation().extras.state.photo;
         this.metadata = this.router.getCurrentNavigation().extras.state.metadata;
       }
     });
   }
   
   ngOnInit() {
-    if(this.photo === undefined) { this.router.navigateByUrl('/app'); }
+    if(this.filePath === undefined) { this.router.navigateByUrl('/app'); }
   }
 
+  /**
+   * Convert the image into a base64 image and try to send it to the server with metadata
+   */
   upload() {
-    this.authService.getUser().then(storedUser => {
-      let photo = {
-        email: storedUser.email,
-        url: this.photo,
-        metadata: this.metadata,
-        type: this.uploadform.get('type').value,
-        size: this.uploadform.get('size').value,
-        infos: this.uploadform.get('infos').value,
-        stranding: this.uploadform.get('stranding').value
-      };
-      this.imageService.uploadImage(photo).subscribe((data:any) => {
-        if(data.success) {
-          this.presentSuccessToast(data.msg);
-        } else {
-          this.presentDangerToast(data.msg);
-        }
+    // split file path to directory and file name
+    let fileName = this.filePath.split('/').pop();
+    let path = this.filePath.substring(0, this.filePath.lastIndexOf("/") + 1);
+
+    this.file.readAsDataURL(path, fileName)
+      .then(base64File => {
+        this.authService.getUser().then(storedUser => {
+          // this.photo = (<any>window).Ionic.WebView.convertFileSrc(this.filePath);
+          let photo = {
+            email: storedUser.email,
+            photo: base64File,
+            metadata: this.metadata,
+            type: this.uploadform.get('type').value,
+            size: this.uploadform.get('size').value,
+            infos: this.uploadform.get('infos').value,
+            stranding: this.uploadform.get('stranding').value
+          };
+          this.imageService.uploadImage(photo).subscribe((data:any) => {
+            if(data.success) {
+              this.presentSuccessToast(data.msg);
+            } else {
+              this.presentDangerToast(data.msg);
+            }
+          });
+        });
+      })
+      .catch(() => {
+        alert('Error converting the photo');
       });
-    });
   }
 
 
