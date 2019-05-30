@@ -90,6 +90,7 @@ export class ImageOptionsPage implements OnInit {
           this.imageService.uploadImage(photo).subscribe((data:any) => {
             if(data.success) {
               this.presentSuccessToast(data.msg);
+              this.router.navigateByUrl('/app');
             } else {
               this.presentDangerToast(data.msg);
             }
