@@ -10,9 +10,9 @@ export class TabsPage {
   private pageTitle: string;
   public tabsList: any[] = [{
     name: 'tab1',
-    title: 'About',
-    label: 'About',
-    icon: 'boat'
+    title: 'My pictures',
+    label: 'My pictures',
+    icon: 'list'
     }, {
     name: 'tab2',
     title: 'Import a new photo',

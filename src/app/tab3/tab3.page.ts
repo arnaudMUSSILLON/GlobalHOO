@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router'
 import { AuthService } from '../services/auth.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
+import { AboutPage } from '../components/about/about.page';
 
 @Component({
   selector: 'app-tab3',
@@ -33,7 +34,11 @@ export class Tab3Page {
     ]
   }
 
-  constructor(private router: Router, private authService: AuthService, private toast: ToastController) {
+  constructor(private router: Router,
+    private authService: AuthService,
+    private toast: ToastController,
+    private modalController: ModalController
+  ) {
     this.authService.getUser().then((data) => {
       this.user = data;
       this.updateform = new FormGroup({
@@ -95,5 +100,17 @@ export class Tab3Page {
   async presentSuccessToast(msg: string) {
     let t = await this.toast.create({ message : msg, duration: 3000, color: 'success' });
     t.present();
+  }
+
+  /**
+   * Display the about modal
+   */
+  async presentAboutModal() {
+    // alert('here');
+    const modal = await this.modalController.create({
+      component: AboutPage,
+      componentProps: { }
+    });
+    return await modal.present();
   }
 }

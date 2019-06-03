@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>About</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)='closeModal()'>
+        Close
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/GHOO_logo.jpeg"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>Getting to know</ion-card-subtitle>
+      <ion-card-title>Global Hands-On Ocean</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Global Hands-On Ocean will become a multi-dimensional system that can educate people of all ages about the centrality of our oceans for the well-being of all life on Earth. We hope to educate and inspire people about the science, the energy flow, the life systems, the food production capabilities, and human interrelationship to oceans.</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Usefull links</ion-label>
+    </ion-list-header>
+    <ion-item href="http://ghoo.ssl.berkeley.edu">
+      <ion-icon slot="start" color="medium" name="globe"></ion-icon>
+      <ion-label>GHOO Website</ion-label>
+    </ion-item>
+    <ion-item href="https://www.youtube.com/channel/UCa5r3NebLGKg7C3dSo66SoQ">
+      <ion-icon slot="start" color="medium" name="logo-youtube"></ion-icon>
+      <ion-label>Youtube channel</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file/ngx';
 import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
+import { AboutPage } from '../components/about/about.page';
 
 @NgModule({
   imports: [
@@ -16,10 +17,11 @@ import { TabsPage } from './tabs.page';
     FormsModule,
     TabsPageRoutingModule
   ],
-  declarations: [TabsPage],
+  declarations: [TabsPage, AboutPage],
   providers: [
     Camera,
     File
-  ]
+  ],
+  entryComponents: [AboutPage]
 })
 export class TabsPageModule {}

@@ -41,4 +41,10 @@
   </form>
 
   <ion-button (click)="logout()" color="danger" class="ion-margin" expand="block">Logout</ion-button>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="presentAboutModal()">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
