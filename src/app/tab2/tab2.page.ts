@@ -68,6 +68,7 @@ export class Tab2Page {
           date: parsedMetadata.Exif.DateTimeDigitized
         };
       } else {  // ANDROID device
+        //TODO
         // alert('Lat: '+parsedData.gpsLatitude+' Lon: '+parsedData.gpsLongitude);
       }
     }

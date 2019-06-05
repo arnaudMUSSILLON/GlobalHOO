@@ -17,6 +17,10 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab1/detail',
+        loadChildren: '../image-detail/image-detail.module#ImageDetailPageModule'
+      },
+      {
         path: 'tab2',
         children: [
           {

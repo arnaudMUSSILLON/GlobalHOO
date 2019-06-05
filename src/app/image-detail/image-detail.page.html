@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Image Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div padding class="image">
+    <img [src]="image"/>
+  </div>
+  <div padding>
+    <ion-item *ngFor="let item of imageData | keyvalue">
+      <ion-label>{{ item.key }}</ion-label>
+      <ion-label>{{ item.value }}</ion-label>      
+    </ion-item>
+  </div>
+</ion-content>

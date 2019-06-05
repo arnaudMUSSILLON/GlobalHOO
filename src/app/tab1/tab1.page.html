@@ -5,6 +5,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-grid>
+    <ion-row center text-center>
+      <ion-col>
+        <div *ngIf="errorMessage!='' && errorMessage!=null">
+          <p>Oops something went wrong...</p>
+          <p>{{ errorMessage }}</p>
+        </div>
 
+        <div *ngIf="images?.length===0 && errorMessage!=''">
+          <p>You still haven't uploaded an image</p>
+          <ion-button (click)="navigateToUpload()">Upload my first image</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-list>
+    <ion-item *ngIf="images?.length!=0">
+      <ion-label class="title-label">Species</ion-label>
+      <ion-label class="title-label">Date</ion-label>
+    </ion-item>
+    <ng-template ngFor let-image [ngForOf]="images">
+      <ion-item (click)="itemOnClick(image)">
+          <ion-label *ngIf="image.type!=''">{{ image.type }}</ion-label>
+          <ion-label *ngIf="image.type==''">Not known</ion-label>
+          <ion-label>{{ image.date }}</ion-label>
+          <ion-icon slot="end" name="arrow-dropright"></ion-icon>
+      </ion-item>
+    </ng-template>
+  </ion-list>
 </ion-content>

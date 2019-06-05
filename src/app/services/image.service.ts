@@ -23,4 +23,30 @@ export class ImageService {
         return this.http.post(environment.apiUrl+'/image/upload', photo, {headers:headers});
     });
   }
+
+  /**
+   * API call to retrieve all uploaded images data of a user
+   * @param email 
+   */
+  getAllImages(email) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return Observable.fromPromise(this.authService.getToken())
+      .flatMap(token => {
+        headers.append('Authorization', token);
+        return this.http.post(environment.apiUrl+'/image/get/all', email, {headers:headers});
+    });
+  }
+
+  /**
+   * API call to download the image from the server
+   * @param email 
+   */
+  getImage(id, email) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return Observable.fromPromise(this.authService.getToken())
+      .flatMap(token => {
+        headers.append('Authorization', token);
+        return this.http.post(environment.apiUrl+'/image/get/'+id, email, {headers:headers});
+    });
+  }
 }
