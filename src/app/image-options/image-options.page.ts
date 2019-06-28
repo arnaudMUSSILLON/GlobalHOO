@@ -91,6 +91,7 @@ export class ImageOptionsPage implements OnInit {
             if(data.success) {
               this.presentSuccessToast(data.msg);
               this.router.navigateByUrl('/app');
+              this.imageService.loadImages();
             } else {
               this.presentDangerToast(data.msg);
             }

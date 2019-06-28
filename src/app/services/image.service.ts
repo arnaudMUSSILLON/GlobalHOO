@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
+  imageList: Array<Object>;
+  user: any;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) { 
+    this.loadImages();
+  }
 
   /**
    * Call to the API to upload the image
@@ -21,6 +25,18 @@ export class ImageService {
       .flatMap(token => {
         headers.append('Authorization', token);
         return this.http.post(environment.apiUrl+'/image/upload', photo, {headers:headers});
+    });
+  }
+
+  /**
+   * Try to load the image uploaded by the current user
+   */
+  loadImages() {
+    this.authService.getUser().then(user => {
+      this.user = user;
+      this.getAllImages({email: user.email}).subscribe((data:any) => {
+        if(data.success===true) this.imageList = data.images;
+      });
     });
   }
 

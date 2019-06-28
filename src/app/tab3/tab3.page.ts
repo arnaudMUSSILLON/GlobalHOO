@@ -11,8 +11,6 @@ import { AboutPage } from '../components/about/about.page';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  user: any;
-
   onlyLettersRegex = /^[A-Z]+$/i;
   updateform;
 
@@ -39,20 +37,19 @@ export class Tab3Page {
     private toast: ToastController,
     private modalController: ModalController
   ) {
-    this.authService.getUser().then((data) => {
-      this.user = data;
+    this.authService.getUser().then(user => {   // Load user from storage and prefill the inputs
       this.updateform = new FormGroup({
-        first_name: new FormControl(this.user.first_name, Validators.compose([
+        first_name: new FormControl(user.first_name, Validators.compose([
           Validators.required,
           Validators.maxLength(15),
           Validators.pattern(this.onlyLettersRegex)
         ])),
-        last_name: new FormControl(this.user.last_name, Validators.compose([
+        last_name: new FormControl(user.last_name, Validators.compose([
           Validators.required,
           Validators.maxLength(20),
           Validators.pattern(this.onlyLettersRegex)
         ])),
-        email: new FormControl({value: this.user.email, disabled: true}, Validators.compose([
+        email: new FormControl({value: user.email, disabled: true}, Validators.compose([
           Validators.required,
           Validators.maxLength(50),
           Validators.email
@@ -106,7 +103,6 @@ export class Tab3Page {
    * Display the about modal
    */
   async presentAboutModal() {
-    // alert('here');
     const modal = await this.modalController.create({
       component: AboutPage,
       componentProps: { }

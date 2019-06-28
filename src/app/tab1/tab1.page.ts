@@ -10,30 +10,17 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  errorMessage: string;
-  images: Array<Object>;
-  user: any;
+  get images() { return this.imageService.imageList; }  // Try to get user's images
+  get user() { return this.imageService.user; }
   
-  constructor(private router:Router,
-    private authService: AuthService,
-    private imageService: ImageService,
-    private toast: ToastController
-  ) {
-    // Try to get user's images
-    this.authService.getUser().then(user => {
-      this.user = user;
-      this.imageService.getAllImages({email: user.email}).subscribe((data:any) => {
-        if(data.success===true)
-          this.images = data.images;
-        else
-          this.errorMessage = data.msg;
-      });
-    });
-  }
+  constructor(private router:Router, private imageService: ImageService, private toast: ToastController) { }
 
+  /**
+   * Call the API to get the image and the informations related to it
+   * @param image item
+   */
   itemOnClick(image) {
     this.imageService.getImage(image.id, {email: this.user.email}).subscribe((data:any) => {
-      console.log(data);
       if(data.success) {
         this.router.navigateByUrl('/image-detail');
         let navigationExtras: NavigationExtras = {
@@ -46,6 +33,9 @@ export class Tab1Page {
     });
   }
 
+  /**
+   * Redirection to the upload page
+   */
   navigateToUpload() {
     this.router.navigateByUrl('/app/tabs/tab2');
   }

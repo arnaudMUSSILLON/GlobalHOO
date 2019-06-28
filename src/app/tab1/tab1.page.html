@@ -1,19 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
+      My pictures
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding (selectedTabChange)="tabClick()">
   <ion-grid>
     <ion-row center text-center>
       <ion-col>
-        <div *ngIf="errorMessage!='' && errorMessage!=null">
-          <p>Oops something went wrong...</p>
-          <p>{{ errorMessage }}</p>
-        </div>
-
         <div *ngIf="images?.length===0 && errorMessage!=''">
           <p>You still haven't uploaded an image</p>
           <ion-button (click)="navigateToUpload()">Upload my first image</ion-button>
@@ -24,7 +20,7 @@
 
 
   <ion-list>
-    <ion-item *ngIf="images?.length!=0">
+    <ion-item>
       <ion-label class="title-label">Species</ion-label>
       <ion-label class="title-label">Date</ion-label>
     </ion-item>

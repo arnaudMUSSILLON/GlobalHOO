@@ -26,10 +26,12 @@ export class Tab2Page {
 
   openCamera() {
     const options: CameraOptions = {
-      quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      quality: 1000,
+      targetWidth: 150,
+      targetHeight: 150,
     }
 
     this.camera.getPicture(options).then((imageData) => {
@@ -44,8 +46,8 @@ export class Tab2Page {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.FILE_URI,
       quality: 1000,
-      targetWidth: 200,
-      targetHeight: 200,
+      targetWidth: 150,
+      targetHeight: 150,
       encodingType: this.camera.EncodingType.JPEG,
       correctOrientation: true
     }

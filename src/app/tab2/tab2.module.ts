@@ -4,7 +4,6 @@ import { NgModule, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
-// import { GalleryComponent } from '../components/gallery/gallery.component';
 
 @NgModule({
   imports: [
@@ -14,15 +13,7 @@ import { Tab2Page } from './tab2.page';
     RouterModule.forChild([{ path: '', component: Tab2Page }]),
   ],
   declarations: [
-    Tab2Page,
-    // GalleryComponent
+    Tab2Page
   ]
 })
-export class Tab2PageModule implements AfterViewInit {
-  // @ViewChild(GalleryComponent) gallery;
-  // mainPhoto: any;
-
-  ngAfterViewInit() {
-    // this.mainPhoto = this.gallery.selectedPhoto;
-  }
-}
+export class Tab2PageModule { }
