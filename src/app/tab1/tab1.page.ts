@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { ImageService } from '../services/image.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';

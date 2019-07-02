@@ -9,6 +9,7 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
 import { AboutPage } from '../components/about/about.page';
+import { LegalPage } from '../components/legal/legal.page';
 
 @NgModule({
   imports: [
@@ -17,11 +18,11 @@ import { AboutPage } from '../components/about/about.page';
     FormsModule,
     TabsPageRoutingModule
   ],
-  declarations: [TabsPage, AboutPage],
+  declarations: [TabsPage, AboutPage, LegalPage],
   providers: [
     Camera,
     File
   ],
-  entryComponents: [AboutPage]
+  entryComponents: [AboutPage, LegalPage]
 })
 export class TabsPageModule {}

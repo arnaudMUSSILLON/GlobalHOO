@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router, NavigationExtras } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -13,7 +13,11 @@ export class Tab2Page {
   currentPlatorm: string;
   metadata: any;
 
-  constructor(private camera: Camera, private router: Router, private platform: Platform) { 
+  constructor(private camera: Camera, 
+    private router: Router, 
+    private platform: Platform,
+    private toast: ToastController
+  ) { 
     platform.ready().then(() => {
       if (this.platform.is('ios')) {
         this.currentPlatorm = 'ios';
@@ -75,9 +79,16 @@ export class Tab2Page {
       }
     }
     this.photoUrl = parsedData.filename;
+    if(this.photoUrl=='' || this.photoUrl==undefined || this.photoUrl==null) 
+      this.presentDangerToast('Something went wrong with the image');
     let navigationExtras: NavigationExtras = {
       state: {photo: this.photoUrl, metadata: this.metadata}
     };
     this.router.navigateByUrl('/app/tabs/tab2/options', navigationExtras);
+  }
+
+  async presentDangerToast(msg: string) {
+    let t = await this.toast.create({ message : msg, duration: 3000, color: 'danger' });
+    t.present();
   }
 }

@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ToastController, ModalController } from '@ionic/angular';
 import { AboutPage } from '../components/about/about.page';
+import { LegalPage } from '../components/legal/legal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -105,6 +106,17 @@ export class Tab3Page {
   async presentAboutModal() {
     const modal = await this.modalController.create({
       component: AboutPage,
+      componentProps: { }
+    });
+    return await modal.present();
+  }
+
+  /**
+   * Display legal modal
+   */
+  async presentLegalModal() {
+    const modal = await this.modalController.create({
+      component: LegalPage,
       componentProps: { }
     });
     return await modal.present();

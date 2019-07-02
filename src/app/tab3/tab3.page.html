@@ -43,9 +43,17 @@
 
   <ion-button (click)="logout()" color="danger" class="ion-margin" expand="block">Logout</ion-button>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="presentAboutModal()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="presentAboutModal()" data-desc="About">
+        <ion-icon name="boat"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="presentLegalModal()" data-desc="Legal information">
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>

@@ -6,25 +6,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="wrapper">
   <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Some instructions</ion-card-subtitle>
-        <ion-card-title>Facilitate Documentation</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        To correctly identify what makes up your photo, we would need you to blabla
-      </ion-card-content>
-    </ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Help us document the world</ion-card-subtitle>
+      <ion-card-title>Import a picture</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        To import an image, you have 2 choices. The first is to take an image directly from the camera of your phone, the second is to access an image you have already taken in your photo library. 
+        <!-- Regardless of the type of import you choose, you must grant the appropriate rights to the application for it to work properly. -->
+      </p>
+      <div class="btn-container">
+        <ion-button size="large" expand="block" color="primary" (click)="openCamera()" id="photo-btn">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Take a picture
+        </ion-button>  
+        <ion-button size="large" expand="block" color="primary" (click)="openGallery()" id="select-btn">
+          <ion-icon slot="start" name="grid"></ion-icon>
+          Select an image
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-  <div class="btn-container">
-    <ion-button size="large" expand="block" color="primary" (click)="openCamera()" id="photo-btn">
-      <ion-icon slot="start" name="camera"></ion-icon>
-      Take a picture
-    </ion-button>  
-    <ion-button size="large" expand="block" color="primary" (click)="openGallery()" id="select-btn">
-      <ion-icon slot="start" name="grid"></ion-icon>
-      Select an image
-    </ion-button>
+  <div class="ion-margin">
+    <h1 class="ion-margin">Facilitate documentation</h1>
+    <p class="ion-text-justify ion-margin">To correctly identify what your photos are made of, we plan to use a deep learning algorithm. 
+      To simplify object recognition, photos should be taken in a similar way for pattern development. The photos used will be those taken with the object seen from above, with the camera held at a distance of about 1 meter. 
+      Thank you for your help!</p>
   </div>
 </ion-content>
